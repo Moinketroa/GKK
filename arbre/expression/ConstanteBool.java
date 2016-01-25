@@ -12,4 +12,10 @@ public class ConstanteBool extends Constante {
         super(texte) ;
     }
 
+	@Override
+	public String toMips() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

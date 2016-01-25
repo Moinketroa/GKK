@@ -1,4 +1,7 @@
-package plic.arbre.expression;
+package plic.arbre.expression.binaire.comparaison;
+
+import plic.arbre.expression.Expression;
+import plic.arbre.expression.binaire.Binaire;
 
 /**
  * 3 déc. 2015

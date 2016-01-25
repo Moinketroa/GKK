@@ -12,4 +12,9 @@ public class ConstanteEntiere extends Constante {
         super(texte) ;
     }
 
+	@Override
+	public String toMips() {
+		return "li $v0, " + this.cste;
+	}
+
 }

@@ -1,4 +1,6 @@
-package plic.arbre.expression;
+package plic.arbre.expression.unaire;
+
+import plic.arbre.expression.Expression;
 
 /**
  * 3 déc. 2015

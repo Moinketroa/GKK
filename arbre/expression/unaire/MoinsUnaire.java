@@ -1,4 +1,6 @@
-package plic.arbre.expression;
+package plic.arbre.expression.unaire;
+
+import plic.arbre.expression.Expression;
 
 /**
  * 3 déc. 2015
@@ -16,5 +18,11 @@ public class MoinsUnaire extends Unaire {
     public String operateur() {
         return "- " ;
     }
+
+	@Override
+	public String toMips() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

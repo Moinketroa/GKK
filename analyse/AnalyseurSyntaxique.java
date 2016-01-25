@@ -7,8 +7,21 @@
 package plic.analyse;
 
 import java.util.*;
+
 import plic.arbre.*;
 import plic.arbre.expression.*;
+import plic.arbre.expression.binaire.Div;
+import plic.arbre.expression.binaire.Moins;
+import plic.arbre.expression.binaire.Mult;
+import plic.arbre.expression.binaire.Plus;
+import plic.arbre.expression.binaire.comparaison.Different;
+import plic.arbre.expression.binaire.comparaison.Egal;
+import plic.arbre.expression.binaire.comparaison.Inferieur;
+import plic.arbre.expression.binaire.comparaison.Superieur;
+import plic.arbre.expression.binaire.logique.EtLogique;
+import plic.arbre.expression.binaire.logique.OuLogique;
+import plic.arbre.expression.unaire.MoinsUnaire;
+import plic.arbre.expression.unaire.NonLogique;
 import plic.exceptions.AnalyseSyntaxiqueException;
 import java_cup.runtime.*;
 
