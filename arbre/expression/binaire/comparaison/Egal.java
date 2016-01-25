@@ -21,8 +21,19 @@ public class Egal extends Comparaison {
 
 	@Override
 	public String toMips() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(super.toMips());
+		
+		sb.append("\t beq $v0, $t8, vraiComp1\n");
+		/* Si non égal : on charge faux dans v0 */
+		sb.append("\t li $v0, 0\n");
+		sb.append("\tj finComp1\n");
+		/* Si égal : on charge vrai dans v0 */
+		sb.append("vraiComp1 :\t li $v0, 1\n");
+		sb.append("finComp1 :\n");
+		
+		return sb.toString();
 	}
     
 }
