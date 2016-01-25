@@ -14,7 +14,7 @@ public class ConstanteEntiere extends Constante {
 
 	@Override
 	public String toMips() {
-		return "li $v0, " + this.cste;
+		return this.cste;
 	}
 
 }

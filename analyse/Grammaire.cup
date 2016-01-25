@@ -3,6 +3,10 @@ package plic.analyse ;
 import java.util.*;
 import plic.arbre.* ;
 import plic.arbre.expression.* ;
+import plic.arbre.expression.binaire.*;
+import plic.arbre.expression.binaire.comparaison.*;
+import plic.arbre.expression.binaire.logique.*;
+import plic.arbre.expression.unaire.*;
 import plic.exceptions.AnalyseSyntaxiqueException;
 
 import java_cup.runtime.*;

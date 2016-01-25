@@ -14,8 +14,7 @@ public class ConstanteBool extends Constante {
 
 	@Override
 	public String toMips() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.cste;
 	}
 
 }

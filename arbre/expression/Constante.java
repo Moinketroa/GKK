@@ -19,4 +19,7 @@ public abstract class Constante extends Expression {
         return cste ;
     }
 
+    public boolean estConstante(){
+    	return true;
+    }
 }

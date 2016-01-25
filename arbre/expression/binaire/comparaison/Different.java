@@ -21,7 +21,7 @@ public class Different extends Comparaison {
 
 	@Override
 	public String toMips() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
   

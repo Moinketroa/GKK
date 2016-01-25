@@ -15,4 +15,8 @@ public abstract class Expression extends ArbreAbstrait {
     }
 
     public abstract String toMips();
+    
+    public boolean estConstante(){
+    	return false;
+    }
 }
