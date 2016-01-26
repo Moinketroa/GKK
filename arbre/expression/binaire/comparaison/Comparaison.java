@@ -41,7 +41,7 @@ public abstract class Comparaison extends Binaire {
     	return sb.toString();
     }
     
-    public boolean estBinaire(){
+    public boolean estBooleen(){
     	return true;
     }
 }

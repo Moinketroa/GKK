@@ -1,6 +1,7 @@
 package plic.arbre.expression.unaire;
 
 import plic.arbre.expression.Expression;
+import plic.exceptions.AnalyseSemantiqueException;
 
 /**
  * 3 déc. 2015
@@ -27,5 +28,12 @@ public class MoinsUnaire extends Unaire {
 
 	public boolean estEntiere(){
 		return true;
+	}
+
+	@Override
+	public void verify() throws AnalyseSemantiqueException {
+		if (!expression.estEntiere()){
+			throw new AnalyseSemantiqueException("Moins Unaire sur expression booléenne");
+		}
 	}
 }

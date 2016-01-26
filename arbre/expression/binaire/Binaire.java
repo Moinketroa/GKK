@@ -1,6 +1,7 @@
 package plic.arbre.expression.binaire;
 
 import plic.arbre.expression.Expression;
+import plic.exceptions.AnalyseSemantiqueException;
 
 /**
  * 3 déc. 2015
@@ -26,4 +27,10 @@ public abstract class Binaire extends Expression {
         return "(" + gauche + operateur() + droite + ")" ;
     }
 
+    public void verify() throws AnalyseSemantiqueException{
+    	if (!(gauche.estBooleen() && droite.estBooleen())){
+    		throw new AnalyseSemantiqueException("Binaire Logique ou Comparaison sur 2 expressions incompatibles");
+    	}
+    }
+    
 }
