@@ -22,6 +22,8 @@ public class NonLogique extends Unaire {
 
 	@Override
 	public String toMips() {
+		this.verify();
+		
 		StringBuilder sb = new StringBuilder();
 		if(this.expression.estConstante()){
 			sb.append("li $v0, " + this.expression.toMips() + "\n");

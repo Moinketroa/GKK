@@ -21,6 +21,8 @@ public class Mult extends BinaireArithmetique {
 
 	@Override
 	public String toMips() {
+		this.verify();
+		
 		StringBuilder sb = new StringBuilder();
 		
 		if (this.gauche.estConstante() && this.droite.estConstante()) {

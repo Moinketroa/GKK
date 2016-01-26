@@ -21,7 +21,9 @@ public class OuLogique extends BinaireLogique {
 
 	@Override
 	public String toMips() {
-StringBuilder sb = new StringBuilder();
+		this.verify();
+		
+		StringBuilder sb = new StringBuilder();
 		
 		sb.append(super.toMips());
 		

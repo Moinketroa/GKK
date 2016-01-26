@@ -21,6 +21,8 @@ public class EtLogique extends BinaireLogique {
 
 	@Override
 	public String toMips() {
+		this.verify();
+		
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append(super.toMips());

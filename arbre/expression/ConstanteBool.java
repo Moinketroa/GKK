@@ -14,7 +14,7 @@ public class ConstanteBool extends Constante {
 
 	@Override
 	public String toMips() {
-		//System.out.println(this.cste);
+		this.verify();
 		if(this.cste.equals("vrai")){
 			return "1";
 		}

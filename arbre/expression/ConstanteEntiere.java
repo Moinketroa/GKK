@@ -14,6 +14,7 @@ public class ConstanteEntiere extends Constante {
 
 	@Override
 	public String toMips() {
+		this.verify();
 		return this.cste;
 	}
 
