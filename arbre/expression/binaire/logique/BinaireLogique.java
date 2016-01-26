@@ -41,4 +41,7 @@ public abstract class BinaireLogique extends Binaire {
     	return sb.toString();
     }
     
+    public boolean estBinaire(){
+    	return true;
+    }
 }

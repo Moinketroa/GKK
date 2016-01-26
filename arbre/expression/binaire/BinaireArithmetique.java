@@ -14,4 +14,7 @@ public abstract class BinaireArithmetique extends Binaire {
         super(gauche, droite) ;
     }
     
+    public boolean estEntiere(){
+    	return true;
+    }
 }

@@ -19,4 +19,12 @@ public abstract class Expression extends ArbreAbstrait {
     public boolean estConstante(){
     	return false;
     }
+    
+    public boolean estBinaire(){
+    	return false;
+    }
+    
+    public boolean estEntiere(){
+    	return false;
+    }
 }

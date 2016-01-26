@@ -25,4 +25,7 @@ public class NonLogique extends Unaire {
 		return null;
 	}
 
+	public boolean estBinaire(){
+		return true;
+	}
 }

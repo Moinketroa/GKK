@@ -25,4 +25,7 @@ public class MoinsUnaire extends Unaire {
 		return null;
 	}
 
+	public boolean estEntiere(){
+		return true;
+	}
 }

@@ -17,4 +17,7 @@ public class ConstanteEntiere extends Constante {
 		return this.cste;
 	}
 
+	public boolean estEntiere(){
+		return true;
+	}
 }
