@@ -17,7 +17,7 @@ public class ConstanteBool extends Constante {
 		return this.cste;
 	}
 
-	public boolean estBinaire(){
+	public boolean estBooleen(){
 		return true;
 	}
 }
