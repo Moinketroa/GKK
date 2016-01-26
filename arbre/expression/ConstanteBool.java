@@ -14,7 +14,13 @@ public class ConstanteBool extends Constante {
 
 	@Override
 	public String toMips() {
-		return this.cste;
+		//System.out.println(this.cste);
+		if(this.cste.equals("vrai")){
+			return "1";
+		}
+		else{
+			return "0";
+		}
 	}
 
 	public boolean estBooleen(){

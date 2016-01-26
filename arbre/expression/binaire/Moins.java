@@ -28,12 +28,17 @@ public class Moins extends BinaireArithmetique {
 			sb.append("li $v0, " + this.gauche.toMips() + "\n");
 			sb.append("li $t8, " + this.droite.toMips() + "\n");
 			sb.append("sub $v0, $v0, $t8\n");
-		} else if (this.droite.estConstante()){
+		}else if (this.gauche.estConstante()){
+			/* Cas gauche constante */
+			sb.append(this.droite.toMips() + "\n");
+			sb.append("li $t8,"+this.gauche.toMips() + "\n");
+			sb.append("sub $v0, $v0, $t8\n");
+		}else if (this.droite.estConstante()){
 			/* Cas droite constante */
 			sb.append(this.gauche.toMips() + "\n");
-			sb.append("li $t8, " + this.droite.toMips() + "\n");
+			sb.append("li $t8," + this.droite.toMips() + "\n");
 			sb.append("sub $v0, $v0, $t8\n");
-		} else {
+		}else {
 			/* Cas gauche et droite sont des expressions */
 			sb.append(this.gauche.toMips() + "\n");
 			sb.append("sw $v0, ($sp)\n");

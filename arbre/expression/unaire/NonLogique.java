@@ -29,9 +29,8 @@ public class NonLogique extends Unaire {
 		else {
 			sb.append(this.expression.toMips() + "\n");
 		}
-		sb.append("sub $v0,$zero,$v0\n");
 		sb.append("\t si:\n");
-		sb.append("beqz $v0,sinon\n");   
+		sb.append("bnez $v0,sinon\n");   
 		sb.append("li $v0,1\n");   
 		sb.append("j finsi\n");   
 		sb.append("\t sinon:\n");

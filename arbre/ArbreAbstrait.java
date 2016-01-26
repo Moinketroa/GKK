@@ -10,5 +10,5 @@ public abstract class ArbreAbstrait {
     
     protected ArbreAbstrait() {
     }
-    
+    public abstract String toMips();
 }

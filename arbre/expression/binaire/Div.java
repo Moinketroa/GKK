@@ -28,23 +28,29 @@ public class Div extends BinaireArithmetique {
 			sb.append("li $v0, " + this.gauche.toMips() + "\n");
 			sb.append("li $t8, " + this.droite.toMips() + "\n");
 			sb.append("div $v0, $t8\n");
-			sb.append("mflo $v0");
-		} else if (this.droite.estConstante()){
+			sb.append("mflo $v0\n");
+		}else if (this.gauche.estConstante()){
+			/* Cas gauche constante */
+			sb.append(this.droite.toMips() + "\n");
+			sb.append("li $t8,"+this.gauche.toMips() + "\n");
+			sb.append("mult $v0, $t8\n");
+			sb.append("mflo $v0\n");
+		}else if (this.droite.estConstante()){
 			/* Cas droite constante */
 			sb.append(this.gauche.toMips() + "\n");
 			sb.append("li $t8, " + this.droite.toMips() + "\n");
 			sb.append("div $v0, $t8\n");
-			sb.append("mflo $v0");
+			sb.append("mflo $v0\n");
 		} else {
 			/* Cas gauche et droite sont des expressions */
-			sb.append(this.gauche.toMips());
-			sb.append("sw $v0, ($sp)");
-			sb.append("addi $sp, $sp, -4");
-			sb.append(this.droite.toMips());
-			sb.append("addi $sp, $sp, 4");
-			sb.append("lw $t8, ($sp)");
-			sb.append("div $v0, $t8");
-			sb.append("mflo $v0");
+			sb.append(this.gauche.toMips()+"\n");
+			sb.append("sw $v0, ($sp)\n");
+			sb.append("addi $sp, $sp, -4\n");
+			sb.append(this.droite.toMips()+"\n");
+			sb.append("addi $sp, $sp, 4\n");
+			sb.append("lw $t8, ($sp)\n");
+			sb.append("div $t8, $v0\n");
+			sb.append("mflo $v0\n");
 		}
 		
 		return sb.toString();

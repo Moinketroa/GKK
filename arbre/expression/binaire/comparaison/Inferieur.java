@@ -25,7 +25,7 @@ public class Inferieur extends Comparaison {
 		
 		sb.append(super.toMips());
 		
-		sb.append("\t sub $v0, $v0, $t8");
+		sb.append("\t sub $v0, $v0, $t8\n");
 		
 		sb.append("\t bltz $v0, vraiComp\n");
 		/* Si supérieur : on charge faux dans v0 */
