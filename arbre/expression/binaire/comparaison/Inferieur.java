@@ -27,13 +27,13 @@ public class Inferieur extends Comparaison {
 		
 		sb.append("\t sub $v0, $v0, $t8");
 		
-		sb.append("\t bltz $v0, vraiComp1\n");
+		sb.append("\t bltz $v0, vraiComp\n");
 		/* Si supérieur : on charge faux dans v0 */
 		sb.append("\t li $v0, 0\n");
-		sb.append("\tj finComp1\n");
+		sb.append("\tj finComp\n");
 		/* Si inférieur : on charge vrai dans v0 */
-		sb.append("vraiComp1 :\t li $v0, 1\n");
-		sb.append("finComp1 :\n");
+		sb.append("vraiComp :\t li $v0, 1\n");
+		sb.append("finComp :\n");
 		
 		return sb.toString();
 	}

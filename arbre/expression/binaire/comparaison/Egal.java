@@ -25,13 +25,13 @@ public class Egal extends Comparaison {
 		
 		sb.append(super.toMips());
 		
-		sb.append("\t beq $v0, $t8, vraiComp1\n");
+		sb.append("\t beq $v0, $t8, vraiComp\n");
 		/* Si non égal : on charge faux dans v0 */
 		sb.append("\t li $v0, 0\n");
-		sb.append("\tj finComp1\n");
+		sb.append("\tj finComp\n");
 		/* Si égal : on charge vrai dans v0 */
-		sb.append("vraiComp1 :\t li $v0, 1\n");
-		sb.append("finComp1 :\n");
+		sb.append("vraiComp :\t li $v0, 1\n");
+		sb.append("finComp :\n");
 		
 		return sb.toString();
 	}

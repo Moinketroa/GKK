@@ -21,19 +21,19 @@ public class Superieur extends Comparaison {
 
 	@Override
 	public String toMips() {
-StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder();
 		
 		sb.append(super.toMips());
 		
 		sb.append("\t sub $v0, $v0, $t8");
 		
-		sb.append("\t bgtz $v0, vraiComp1\n");
+		sb.append("\t bgtz $v0, vraiComp\n");
 		/* Si inférieur : on charge faux dans v0 */
 		sb.append("\t li $v0, 0\n");
-		sb.append("\tj finComp1\n");
+		sb.append("\tj finComp\n");
 		/* Si supérieur : on charge vrai dans v0 */
-		sb.append("vraiComp1 :\t li $v0, 1\n");
-		sb.append("finComp1 :\n");
+		sb.append("vraiComp :\t li $v0, 1\n");
+		sb.append("finComp :\n");
 		
 		return sb.toString();
 	}
