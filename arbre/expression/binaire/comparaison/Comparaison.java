@@ -2,6 +2,7 @@ package plic.arbre.expression.binaire.comparaison;
 
 import plic.arbre.expression.Expression;
 import plic.arbre.expression.binaire.Binaire;
+import plic.exceptions.AnalyseSemantiqueException;
 
 /**
  * 3 déc. 2015
@@ -44,4 +45,5 @@ public abstract class Comparaison extends Binaire {
     public boolean estBooleen(){
     	return true;
     }
+    
 }

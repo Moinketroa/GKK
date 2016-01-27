@@ -1,7 +1,11 @@
 package plic ;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import plic.analyse.AnalyseurLexical;
@@ -21,9 +25,23 @@ public class Plic {
         try {
             AnalyseurSyntaxique analyseur = new AnalyseurSyntaxique(new AnalyseurLexical(new FileReader(fichier)));
             ArbreAbstrait arbre = (ArbreAbstrait) analyseur.parse().value;
-            System.err.println("expression stockée dans l'arbre : " + arbre);
-            System.out.println(arbre.toMips());
             
+            StringBuilder sb = new StringBuilder();
+            sb.append(".text\nmain :\n");
+            sb.append(arbre.toMips());
+            sb.append("end :\n");
+            sb.append("\t# fin du programme\n");
+            sb.append("\tmove $v1, $v0   # copie de v0 dans v1 pour permettre les tests de plic0\n");
+            sb.append("\tli $v0, 10      # retour au syst�me\n");
+            sb.append("\tsyscall\n");
+           
+            File f = new File("Zusammenstellung.asm");
+            FileWriter fw = new FileWriter(f);
+            BufferedWriter bf = new BufferedWriter(fw);
+            bf.write(sb.toString());
+            bf.flush();
+            bf.close();
+            fw.close();
         } 
         catch (FileNotFoundException ex) {
             System.err.println("Fichier " + fichier + " inexistant") ;

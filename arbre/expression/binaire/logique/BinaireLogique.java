@@ -2,6 +2,7 @@ package plic.arbre.expression.binaire.logique;
 
 import plic.arbre.expression.Expression;
 import plic.arbre.expression.binaire.Binaire;
+import plic.exceptions.AnalyseSemantiqueException;
 
 /**
  * 3 déc. 2015
@@ -43,5 +44,11 @@ public abstract class BinaireLogique extends Binaire {
     
     public boolean estBooleen(){
     	return true;
+    }
+    
+    public void verify() throws AnalyseSemantiqueException{
+    	if (!(gauche.estBooleen() && droite.estBooleen())){
+    		throw new AnalyseSemantiqueException("Binaire Logique sur 2 expressions incompatibles");
+    	}
     }
 }

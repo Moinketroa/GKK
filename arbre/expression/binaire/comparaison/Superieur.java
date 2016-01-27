@@ -1,6 +1,7 @@
 package plic.arbre.expression.binaire.comparaison;
 
 import plic.arbre.expression.Expression;
+import plic.exceptions.AnalyseSemantiqueException;
 
 /**
  * 3 déc. 2015
@@ -40,4 +41,9 @@ public class Superieur extends Comparaison {
 		return sb.toString();
 	}
     
+	public void verify() throws AnalyseSemantiqueException{
+    	if (!(gauche.estEntiere() && droite.estEntiere())){
+    		throw new AnalyseSemantiqueException("Superieur sur 2 expressions incompatibles");
+    	}
+    }
 }

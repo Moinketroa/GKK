@@ -26,11 +26,5 @@ public abstract class Binaire extends Expression {
     public String toString() {
         return "(" + gauche + operateur() + droite + ")" ;
     }
-
-    public void verify() throws AnalyseSemantiqueException{
-    	if (!(gauche.estBooleen() && droite.estBooleen())){
-    		throw new AnalyseSemantiqueException("Binaire Logique ou Comparaison sur 2 expressions incompatibles");
-    	}
-    }
     
 }
