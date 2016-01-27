@@ -35,7 +35,7 @@ public class Plic {
             sb.append("\tli $v0, 10      # retour au syst�me\n");
             sb.append("\tsyscall\n");
            
-            File f = new File("Zusammenstellung.asm");
+            File f = new File("Dateizusammenstellung.asm");
             FileWriter fw = new FileWriter(f);
             BufferedWriter bf = new BufferedWriter(fw);
             bf.write(sb.toString());
