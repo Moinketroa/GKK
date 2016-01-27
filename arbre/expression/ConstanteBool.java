@@ -14,10 +14,16 @@ public class ConstanteBool extends Constante {
 
 	@Override
 	public String toMips() {
-		return this.cste;
+		this.verify();
+		if(this.cste.equals("vrai")){
+			return "1";
+		}
+		else{
+			return "0";
+		}
 	}
 
-	public boolean estBinaire(){
+	public boolean estBooleen(){
 		return true;
 	}
 }

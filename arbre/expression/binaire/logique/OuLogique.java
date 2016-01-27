@@ -21,7 +21,9 @@ public class OuLogique extends BinaireLogique {
 
 	@Override
 	public String toMips() {
-StringBuilder sb = new StringBuilder();
+		this.verify();
+		
+		StringBuilder sb = new StringBuilder();
 		
 		sb.append(super.toMips());
 		
@@ -31,7 +33,7 @@ StringBuilder sb = new StringBuilder();
 		/* Test de la valeur de gauche ( == 1) */
 		sb.append("\t li $t8, 1\n");
 		sb.append("\t beq $v0, $t8, binaireVrai\n");
-		sb.append("\t lw $v0, 4(sp)\n");
+		sb.append("\t lw $v0, 4($sp)\n");
 		/* Test de la valeur de droite ( == 1) */
 		sb.append("\t beq $v0, $t8, binaireVrai\n");
 		/* Faux */

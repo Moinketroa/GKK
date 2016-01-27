@@ -1,6 +1,7 @@
 package plic.arbre.expression.binaire;
 
 import plic.arbre.expression.Expression;
+import plic.exceptions.AnalyseSemantiqueException;
 
 /**
  * 3 déc. 2015
@@ -25,5 +26,5 @@ public abstract class Binaire extends Expression {
     public String toString() {
         return "(" + gauche + operateur() + droite + ")" ;
     }
-
+    
 }

@@ -21,6 +21,8 @@ public class Plus extends BinaireArithmetique {
 
 	@Override
 	public String toMips() {
+		this.verify();
+		
 		StringBuilder sb = new StringBuilder();
 		
 		if (this.gauche.estConstante() && this.droite.estConstante()) {
@@ -31,7 +33,11 @@ public class Plus extends BinaireArithmetique {
 			/* Cas droite constante */
 			sb.append(this.gauche.toMips() + "\n");
 			sb.append("addi $v0, $v0, " + this.droite.toMips() + "\n");
-		} else {
+		} else if (this.gauche.estConstante()){
+			/* Cas gauche constante */
+			sb.append(this.droite.toMips() + "\n");
+			sb.append("addi $v0, $v0, " + this.gauche.toMips() + "\n");
+		}else {
 			/* Cas gauche et droite sont des expressions */
 			sb.append(this.gauche.toMips() + "\n");
 			sb.append("sw $v0, ($sp)\n");
