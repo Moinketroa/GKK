@@ -70,13 +70,26 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
+terminal Symbol    MCCLASSE;	//mot cle classe
+terminal Symbol    PUBLIQUE, PRIVEE; //statut
+terminal Symbol    ENTIER;	//type
+terminal Symbol	   DEBUT, FIN;	//mot cle debut et fin
+
 terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER ;
 terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON ;
-terminal String    CONSTANTEINT, CONSTANTEBOOL ;
+terminal Symbol	   EGAL;
+terminal Symbol	   ECRIRE;
+terminal Symbol	   POINTVIRGULE, VIRGULE;
+terminal String    IDF, CONSTANTEINT, CONSTANTEBOOL, CONSTANTECHAINE ;
    
 /* Non terminals used in the grammar section.  */
 
-non terminal ArbreAbstrait PROG ;
+non terminal ArbreAbstrait SYSTEME ;
+non terminal ArbreAbstrait CLASSE;
+non terminal BlocDInstructions LDECL;
+non terminal ArbreAbstrait DECLARATION, DECL_CHAMP, DECL_CONST;
+non terminal Expression INSTRUCTION, AFFECT, ECRIRE;
+non terminal Expression STATUT, TYPE, ACCES;
 non terminal Expression EXPR, CSTE ;
 
 precedence left INF, SUP ;
@@ -89,13 +102,61 @@ precedence left NON ;
 
 /* ----------------------------Grammar Section-------------------- */
  
-start with PROG ;
+start with SYSTEME ;
 
-PROG    ::=     EXPR:e 
-                {: BlocDInstructions arbre = new BlocDInstructions() ;
-                   arbre.ajouter(e) ;
+SYSTEME ::= 	CLASSE:c
+				{: BlocDInstructions arbre = new BlocDInstructions() ;
+                   arbre.ajouter(c) ;
                    RESULT = arbre ; :}
                 ;
+
+CLASSE  ::= 	MCCLASSE IDF:i LDECL:l FIN
+				{: RESULT = l; :}
+				;
+				
+LDECL   ::=		
+				{: RESULT = new BlocDInstructions(); :}
+		|
+				DECLARATION:d
+				{: BlocDInstructions arbre = new BlocDInstructions() ;
+                   arbre.ajouter(d) ;
+                   RESULT = arbre ; :}
+        |
+        		LDECL:l DECLARATION:d
+        		{: l.ajouter(d);
+        		   RESULT = l; :}  
+        		;
+
+DECLARATION ::=	DECL_CHAMP:d
+				{: RESULT = d; :}
+		|
+				DECL_CONST:d
+				{: RESULT = d; :}
+				;
+				
+DECL_CHAMP 	::=	STATUT TYPE IDF POINTVIRGULE //a ajouter : declaration de plusieurs varaible de meme type
+				{: :} //a voir plus tard 
+				;
+				
+DECL_CONST	::= INSTRUCTION:i
+				{: :} //a voir
+		|
+				DECL_CONST:d INSTRUCTION:i
+				{: :} //a voir
+				;
+				
+INSTRUCTION ::= AFFECT
+				{: :}
+		|
+				ECRIRE
+				{: :}
+				;
+				
+AFFECT	::=		ACCES EGAL EXPR POINTVIRGULE
+				{: :}
+				;
+				
+ECRIRE 	::=					
     
 EXPR    ::=     EXPR:g  PLUS  EXPR:d
                 {: RESULT = new Plus(g, d) ; :}
