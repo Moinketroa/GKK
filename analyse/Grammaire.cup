@@ -175,10 +175,10 @@ AFFECT	::=		ACCES:a EGAL EXPR:e POINTVIRGULE
 				;
 				
 ECRIRE 	::=		MCECRIRE EXPR:e
-				{: RESULT = new Ecriture(e); :}
+				{: RESULT = new EcritureExpr(e); :}
 		|
 				MCECRIRE CONSTANTECHAINE:c
-				{: RESULT = new Ecriture(c); :}
+				{: RESULT = new EcritureChaine(c); :}
 				;
     
 STATUT  ::=		PUBLIQUE
