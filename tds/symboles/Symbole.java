@@ -1,7 +1,17 @@
 package plic.tds.symboles;
 
+import plic.arbre.expression.Expression;
+
 public abstract class Symbole {
-	private int deplacement;
+	protected int deplacement;
+	protected String statut, type;
+	
+	
+	public Symbole(String statut, String type){
+		super();
+		this.statut = statut;
+		this.type = type;
+	}
 	
 	public void setDeplacement(int d){
 		deplacement = d;
