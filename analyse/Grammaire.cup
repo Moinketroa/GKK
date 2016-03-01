@@ -70,14 +70,29 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
+terminal Symbol    MCCLASSE;	//mot cle classe
+terminal Symbol    PUBLIQUE, PRIVEE; //statut
+terminal Symbol    ENTIER;	//type
+terminal Symbol	   DEBUT, FIN;	//mot cle debut et fin
+
 terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER ;
 terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON ;
-terminal String    CONSTANTEINT, CONSTANTEBOOL ;
+terminal Symbol	   EGAL;
+terminal Symbol	   MCECRIRE;
+terminal Symbol	   POINTVIRGULE, VIRGULE;
+terminal String    IDF, CONSTANTEINT, CONSTANTEBOOL, CONSTANTECHAINE ;
    
 /* Non terminals used in the grammar section.  */
 
-non terminal ArbreAbstrait PROG ;
-non terminal Expression EXPR, CSTE ;
+non terminal ArbreAbstrait SYSTEME ;
+non terminal ArbreAbstrait CLASSE;
+non terminal BlocDInstructions LDECL, DECLARATION, DECL_CHAMP, DECL_CONST;
+non terminal ArrayList<String> L_IDF;
+non terminal ArbreAbstrait INSTRUCTION; 
+non terminal Affectation AFFECT; 
+non terminal Ecriture ECRIRE;
+non terminal Expression STATUT, TYPE;
+non terminal Expression EXPR, CSTE, ACCES;
 
 precedence left INF, SUP ;
 precedence left EGALEGAL, DIFF;
@@ -86,17 +101,95 @@ precedence left MULT, DIV ;
 precedence left OU ;
 precedence left ET ;
 precedence left NON ;
+precedence right MCECRIRE;
+precedence left POINTVIRGULE;
+precedence left IDF;
 
 /* ----------------------------Grammar Section-------------------- */
  
-start with PROG ;
+start with SYSTEME ;
 
-PROG    ::=     EXPR:e 
-                {: BlocDInstructions arbre = new BlocDInstructions() ;
-                   arbre.ajouter(e) ;
+SYSTEME ::= 	CLASSE:c
+				{: BlocDInstructions arbre = new BlocDInstructions() ;
+                   arbre.ajouter(c) ;
                    RESULT = arbre ; :}
                 ;
+
+CLASSE  ::= 	MCCLASSE IDF:i DEBUT LDECL:l FIN
+				{: RESULT = l; :}
+		|
+				MCCLASSE IDF DEBUT FIN
+				{: RESULT = new BlocDInstructions(); :}
+				;
+				
+LDECL   ::=		DECLARATION:d
+				{: RESULT = d; :}
+        |
+        		LDECL:l DECLARATION:d
+        		{: l.ajouter(d);
+        		   RESULT = l; :}  
+        		;
+
+DECLARATION ::=	DECL_CHAMP:d
+				{: RESULT = d; :}
+		|
+				DECL_CONST:c
+				{: RESULT = c; :}
+				;
+				
+DECL_CHAMP 	::=	STATUT TYPE IDF POINTVIRGULE 
+				{: :} //ajouter l'identifiant à la tds je crois...?
+			|	STATUT TYPE L_IDF:li POINTVIRGULE
+				{: for(String s : li){
+						;
+				   } 
+				   RESULT = null; :} 
+				;
+				
+L_IDF		::= IDF:i
+				{: ArrayList<String> als = new ArrayList<>(); 
+				   als.add(i);
+				   RESULT = als; :}
+			|
+				L_IDF:li VIRGULE IDF:i
+				{: li.add(i);
+				   RESULT = li; :}
+				;
+				
+DECL_CONST	::= INSTRUCTION:i
+				{: BlocDInstructions bdi = new BlocDInstructions(); 
+				   bdi.ajouter(i);
+				   RESULT = bdi; :}
+		|
+				DECL_CONST:d INSTRUCTION:i
+				{: d.ajouter(i);
+				   RESULT = d; :}
+				;
+				
+INSTRUCTION ::= AFFECT:a
+				{: RESULT = a; :}
+		|
+				ECRIRE:e
+				{: RESULT = e; :}
+				;
+				
+AFFECT	::=		ACCES:a EGAL EXPR:e POINTVIRGULE
+				{: RESULT = new Affectation(a, e); :}
+				;
+				
+ECRIRE 	::=		MCECRIRE EXPR:e
+				{: RESULT = new EcritureExpr(e); :}
+		|
+				MCECRIRE CONSTANTECHAINE:c
+				{: RESULT = new EcritureChaine(c); :}
+				;
     
+STATUT  ::=		PUBLIQUE
+		|		PRIVEE
+				;
+
+TYPE 	::=		ENTIER;
+
 EXPR    ::=     EXPR:g  PLUS  EXPR:d
                 {: RESULT = new Plus(g, d) ; :}
         | 
@@ -133,12 +226,19 @@ EXPR    ::=     EXPR:g  PLUS  EXPR:d
                 NON EXPR:e
                 {: RESULT = new NonLogique(e); :}
         |
+				ACCES:a
+				{: RESULT = a :}
+		|
                 CSTE:c
                 {: RESULT = c ; :}
         |
                 PAROUV  EXPR:e  PARFER
                 {: RESULT = e ; :}
                 ;
+
+ACCES	::=		IDF:i
+				{: RESULT = new Acces(i); :}
+				;
 
 CSTE    ::=     CONSTANTEINT:e 
                 {: RESULT = new ConstanteEntiere(e) ; :}

@@ -32,7 +32,7 @@ public class Plic {
             sb.append("end :\n");
             sb.append("\t# fin du programme\n");
             sb.append("\tmove $v1, $v0   # copie de v0 dans v1 pour permettre les tests de plic0\n");
-            sb.append("\tli $v0, 10      # retour au syst�me\n");
+            sb.append("\tli $v0, 10      # retour au système\n");
             sb.append("\tsyscall\n");
            
             File f = new File("Dateizusammenstellung.asm");
