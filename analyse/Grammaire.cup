@@ -86,9 +86,9 @@ terminal String    IDF, CONSTANTEINT, CONSTANTEBOOL, CONSTANTECHAINE ;
 
 non terminal ArbreAbstrait SYSTEME ;
 non terminal ArbreAbstrait CLASSE;
-non terminal BlocDInstructions LDECL DECLARATION, DECL_CHAMP, DECL_CONST;
+non terminal BlocDInstructions LDECL, DECLARATION, DECL_CHAMP, DECL_CONST;
 non terminal ArrayList<String> L_IDF;
-non terminal ArbreAbstrait INSTRUCTION, 
+non terminal ArbreAbstrait INSTRUCTION; 
 non terminal Affectation AFFECT; 
 non terminal Ecriture ECRIRE;
 non terminal Expression STATUT, TYPE;
@@ -101,6 +101,9 @@ precedence left MULT, DIV ;
 precedence left OU ;
 precedence left ET ;
 precedence left NON ;
+precedence right MCECRIRE;
+precedence left POINTVIRGULE;
+precedence left IDF;
 
 /* ----------------------------Grammar Section-------------------- */
  
@@ -112,10 +115,10 @@ SYSTEME ::= 	CLASSE:c
                    RESULT = arbre ; :}
                 ;
 
-CLASSE  ::= 	MCCLASSE IDF:i LDECL:l FIN
+CLASSE  ::= 	MCCLASSE IDF:i DEBUT LDECL:l FIN
 				{: RESULT = l; :}
 		|
-				MCCLASSE IDF FIN
+				MCCLASSE IDF DEBUT FIN
 				{: RESULT = new BlocDInstructions(); :}
 				;
 				
@@ -148,7 +151,7 @@ L_IDF		::= IDF:i
 				   als.add(i);
 				   RESULT = als; :}
 			|
-				L_IDF:li IDF:i
+				L_IDF:li VIRGULE IDF:i
 				{: li.add(i);
 				   RESULT = li; :}
 				;
