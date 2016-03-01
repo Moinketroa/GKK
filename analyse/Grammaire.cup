@@ -8,6 +8,9 @@ import plic.arbre.expression.binaire.comparaison.*;
 import plic.arbre.expression.binaire.logique.*;
 import plic.arbre.expression.unaire.*;
 import plic.exceptions.AnalyseSyntaxiqueException;
+import plic.tds.*;
+import plic.tds.entrees.*;
+import plic.tds.symboles.*;
 
 import java_cup.runtime.*;
 
@@ -33,6 +36,13 @@ parser code {:
         lesTerminaux.put(new Integer(CodesLexicaux.ET), "et") ;
         lesTerminaux.put(new Integer(CodesLexicaux.OU), "ou") ;
         lesTerminaux.put(new Integer(CodesLexicaux.NON), "non") ;
+        
+        lesTerminaux.put(new Integer(CodesLexicaux.MCCLASSE), "classe");
+        lesTerminaux.put(new Integer(CodesLexicaux.PUBLIQUE), "publique");
+        lesTerminaux.put(new Integer(CodesLexicaux.PRIVEE), "privee");
+        lesTerminaux.put(new Integer(CodesLexicaux.DEBUT), "debut");
+        lesTerminaux.put(new Integer(CodesLexicaux.VIRGULE), ",");
+        lesTerminaux.put(new Integer(CodesLexicaux.MCECRIRE), "ecrire");
 
         StringBuffer m = new StringBuffer() ;
 
@@ -137,12 +147,13 @@ DECLARATION ::=	DECL_CHAMP:d
 				{: RESULT = c; :}
 				;
 				
-DECL_CHAMP 	::=	STATUT TYPE IDF POINTVIRGULE 
-				{: :} //ajouter l'identifiant à la tds je crois...?
-			|	STATUT TYPE L_IDF:li POINTVIRGULE
-				{: for(String s : li){
-						;
-				   } 
+DECL_CHAMP 	::=	STATUT:st TYPE:t L_IDF:li POINTVIRGULE
+				{: 
+					BlocDInstructions bl = new BlocDInstructions();
+					for(String s : li){
+						TDS.getInstance().ajouter(new EntreeVar(s), new SymboleEntier(st, t));
+						bl.ajouter(new DeclarationChamp(st, t));
+				  	} 
 				   RESULT = null; :} 
 				;
 				

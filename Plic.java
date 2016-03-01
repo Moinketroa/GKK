@@ -34,8 +34,13 @@ public class Plic {
             sb.append("\tmove $v1, $v0   # copie de v0 dans v1 pour permettre les tests de plic0\n");
             sb.append("\tli $v0, 10      # retour au système\n");
             sb.append("\tsyscall\n");
-           
-            File f = new File("Dateizusammenstellung.asm");
+            
+            if (fichier.endsWith(".plic")){
+            	fichier = fichier.substring(0, fichier.length() - 5);
+            }
+            fichier += ".asm";
+            
+            File f = new File(fichier);
             FileWriter fw = new FileWriter(f);
             BufferedWriter bf = new BufferedWriter(fw);
             bf.write(sb.toString());

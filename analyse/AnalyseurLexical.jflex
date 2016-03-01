@@ -1,7 +1,8 @@
 package plic.analyse ;
 
 import java_cup.runtime.*;
-import plic.exceptions.AnalyseLexicaleException;
+import plic.exceptions.*;
+import plic.tds.*;
       
 %%
    

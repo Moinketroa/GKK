@@ -27,15 +27,7 @@ public class EtLogique extends BinaireLogique {
 		
 		sb.append(super.toMips());
 		
-		sb.append("\t bne $v0, $t8, binaireFaux\n");
-		/* Si les deux ne sont pas égaux : on jumpe vers faux */
-		sb.append("\t li $t8, 1\n");
-		sb.append("\t bne $v0, $t8, binaireFaux\n");
-		/* Si gauche n'est pas 1 : on jumpe vers faux */
-		sb.append("binaireVrai : \t li $v0, 1\n");
-		sb.append("\t j binaireFin\n");	
-		sb.append("binaireFaux : \t li $v0, 0\n");
-		sb.append("binaireFin : \t\n");
+		sb.append("and $v0, $v0, $t8\n");
 		
 		return sb.toString();
 	}
