@@ -34,12 +34,14 @@ public class Plic {
             		+ "\t move $s7, $sp\n"
             		+ "\t addi $sp, $sp, -" + TDS.getInstance().getTailleZoneDesVariables() + "\n");
             
-            sb.append(arbre.toMips());
-            sb.append("end :\n");
-            sb.append("\t# fin du programme\n");
-            sb.append("\tmove $v1, $v0   # copie de v0 dans v1 pour permettre les tests de plic0\n");
-            sb.append("\tli $v0, 10      # retour au système\n");
-            sb.append("\tsyscall\n");
+            if (arbre.toMips() != null)
+            	sb.append(arbre.toMips());
+            
+            sb.append("end :\n"
+            		+ "\t #Fin du programme\n"
+            		+ "\t move $v1, $v0   # copie de v0 dans v1 pour permettre les tests de plic0\n"
+            		+ "\t li $v0, 10      # retour au système\n"
+            		+ "\t syscall\n");
             
             if (fichier.endsWith(".plic")){
             	fichier = fichier.substring(0, fichier.length() - 5);
@@ -53,6 +55,8 @@ public class Plic {
             bf.flush();
             bf.close();
             fw.close();
+            
+            System.out.println("Compilation OK");
         } 
         catch (FileNotFoundException ex) {
             System.err.println("Fichier " + fichier + " inexistant") ;

@@ -15,7 +15,7 @@ public class Affectation extends ArbreAbstrait{
 	
 	@Override
 	public String toMips() {
-		// TODO Auto-generated method stub
+		//Récuperer le décalage de acces avec la TDS (identifier)
 		return null;
 	}
 
