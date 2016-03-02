@@ -26,6 +26,8 @@ public class Superieur extends Comparaison {
 		
 		StringBuilder sb = new StringBuilder();
 		
+		sb.append("#Comparaison supérieur à\n");
+		
 		sb.append(super.toMips());
 		
 		sb.append("slt $v0, $t8, $v0\n");

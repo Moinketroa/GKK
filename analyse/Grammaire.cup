@@ -13,6 +13,8 @@ import plic.tds.entrees.*;
 import plic.tds.symboles.*;
 import plic.arbre.declarations.*;
 import plic.arbre.ecriture.*;
+import plic.arbre.expression.acces.*;
+import plic.arbre.affectations.*;
 
 import java_cup.runtime.*;
 
@@ -40,8 +42,6 @@ parser code {:
         lesTerminaux.put(new Integer(CodesLexicaux.NON), "non") ;
         
         lesTerminaux.put(new Integer(CodesLexicaux.MCCLASSE), "classe");
-        lesTerminaux.put(new Integer(CodesLexicaux.PUBLIQUE), "publique");
-        lesTerminaux.put(new Integer(CodesLexicaux.PRIVEE), "privee");
         lesTerminaux.put(new Integer(CodesLexicaux.DEBUT), "debut");
         lesTerminaux.put(new Integer(CodesLexicaux.VIRGULE), ",");
         lesTerminaux.put(new Integer(CodesLexicaux.MCECRIRE), "ecrire");
@@ -83,7 +83,6 @@ parser code {:
 /* Terminals (tokens returned by the scanner).  */
 
 terminal Symbol    MCCLASSE;	//mot cle classe
-terminal Symbol    PUBLIQUE, PRIVEE; //statut
 terminal Symbol    ENTIER;	//type
 terminal Symbol	   DEBUT, FIN;	//mot cle debut et fin
 
@@ -92,7 +91,7 @@ terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON ;
 terminal Symbol	   EGAL;
 terminal Symbol	   MCECRIRE;
 terminal Symbol	   POINTVIRGULE, VIRGULE;
-terminal String    IDF, CONSTANTEINT, CONSTANTEBOOL, CONSTANTECHAINE ;
+terminal String    IDF, CONSTANTEINT, CONSTANTEBOOL, CONSTANTECHAINE, STATUT ;
    
 /* Non terminals used in the grammar section.  */
 
@@ -101,9 +100,9 @@ non terminal ArbreAbstrait CLASSE;
 non terminal BlocDInstructions LDECL, DECLARATION, DECL_CHAMP, DECL_CONST;
 non terminal ArrayList<String> L_IDF;
 non terminal ArbreAbstrait INSTRUCTION; 
-non terminal Affectation AFFECT; 
-non terminal Ecriture ECRIRE;
-non terminal String STATUT, TYPE;
+non terminal ArbreAbstrait AFFECT; 
+non terminal ArbreAbstrait ECRIRE;
+non terminal String TYPE;
 non terminal Expression EXPR, CSTE, ACCES;
 
 precedence left INF, SUP ;
@@ -128,14 +127,16 @@ SYSTEME ::= 	CLASSE:c
                 ;
 
 CLASSE  ::= 	MCCLASSE IDF:i DEBUT LDECL:l FIN
-				{: RESULT = l; :}
+				{: System.out.println("CLASSE");   
+				RESULT = l; :}
 		|
 				MCCLASSE IDF DEBUT FIN
 				{: RESULT = new BlocDInstructions(); :}
 				;
 				
 LDECL   ::=		DECLARATION:d
-				{: RESULT = d; :}
+				{:System.out.println("DECL");   
+				RESULT = d; :}
         |
         		LDECL:l DECLARATION:d
         		{: l.ajouter(d);
@@ -143,7 +144,8 @@ LDECL   ::=		DECLARATION:d
         		;
 
 DECLARATION ::=	DECL_CHAMP:d
-				{: RESULT = d; :}
+				{: System.out.println("DECLCHAMP");  
+				RESULT = d; :}
 		|
 				DECL_CONST:c
 				{: RESULT = c; :}
@@ -151,13 +153,12 @@ DECLARATION ::=	DECL_CHAMP:d
 				
 DECL_CHAMP 	::=	STATUT:st TYPE:t L_IDF:li POINTVIRGULE
 				{: 
-					//BlocDInstructions bl = new BlocDInstructions();
+					BlocDInstructions bl = new BlocDInstructions();
 					for(String s : li){
 						TDS.getInstance().ajouter(new EntreeVar(s), new SymboleEntier(st, t));
-						//bl.ajouter(new DeclarationChamp());
+						bl.ajouter(new DeclarationChamp());
 				  	} 
-				   //RESULT = bl; 
-				   RESULT = null; :} 
+				   RESULT = bl; :} 
 				;
 				
 L_IDF		::= IDF:i
@@ -198,10 +199,6 @@ ECRIRE 	::=		MCECRIRE EXPR:e
 				{: RESULT = new EcritureChaine(c); :}
 				;
     
-STATUT  ::=		PUBLIQUE
-		|		PRIVEE
-				;
-
 TYPE 	::=		ENTIER;
 
 EXPR    ::=     EXPR:g  PLUS  EXPR:d

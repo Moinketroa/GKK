@@ -10,7 +10,8 @@ import plic.exceptions.AnalyseSemantiqueException;
  */
 
 public class Different extends Comparaison {
-
+	private int compteur = 1; 
+	
     public Different(Expression gauche, Expression droite) {
         super(gauche, droite);
     }
@@ -26,10 +27,19 @@ public class Different extends Comparaison {
 		
 		StringBuilder sb = new StringBuilder();
 		
+		sb.append("#Comparaison différent de\n");
+		
 		sb.append(super.toMips());
 		
+		sb.append("\t beq $v0, $t8, fauxDiff" + compteur + "\n");
+		/* Si non égal : on charge vrai dans v0 */
+		sb.append("\t li $v0, 1\n");
+		sb.append("\tj finDiff" + compteur + "\n");
+		/* Si égal : on charge faux dans v0 */
+		sb.append("fauxDiff" + compteur + " :\t li $v0, 0\n");
+		sb.append("finDiff" + compteur + " :\n");
 		
-
+		compteur++;
 		return sb.toString();
 	}
 	

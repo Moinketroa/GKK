@@ -28,6 +28,8 @@ public class Inferieur extends Comparaison {
 		
 		sb.append(super.toMips());
 		
+		sb.append("#Comparaison inférieur à\n");
+		
 		sb.append("slt $v0, $v0, $t8\n");
 		
 		return sb.toString();

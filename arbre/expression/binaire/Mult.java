@@ -25,6 +25,8 @@ public class Mult extends BinaireArithmetique {
 		
 		StringBuilder sb = new StringBuilder();
 		
+		sb.append("#Multiplication\n");
+		
 		if (this.gauche.estConstante() && this.droite.estConstante()) {
 			/* Cas droite et gauche constantes */
 			sb.append("li $v0, " + this.gauche.toMips() + "\n");

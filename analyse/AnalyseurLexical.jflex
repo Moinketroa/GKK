@@ -32,6 +32,7 @@ import plic.tds.*;
 csteC = "\".*\""
 csteE = [0-9]+
 csteB = "vrai" | "faux"
+statut = "publique" | "privee"
 
 
 idf = [a-zA-Z][a-zA-Z0-9\_]*
@@ -39,42 +40,54 @@ idf = [a-zA-Z][a-zA-Z0-9\_]*
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]
 
+%state commentaire
+commentaireSlashSlash = [/][/].*
+commentaireSlashEtoile = [/][*]
+commentaireEtoileSlash = [*][/]
+
+
 %%
 
-"+"                	{ return symbol(CodesLexicaux.PLUS); }
-"-"                	{ return symbol(CodesLexicaux.MOINS); }
-"*"                	{ return symbol(CodesLexicaux.MULT); }
-"/"                	{ return symbol(CodesLexicaux.DIV); }
+<YYINITIAL> "+"                	{ return symbol(CodesLexicaux.PLUS); }
+<YYINITIAL> "-"                	{ return symbol(CodesLexicaux.MOINS); }
+<YYINITIAL> "*"                	{ return symbol(CodesLexicaux.MULT); }
+<YYINITIAL> "/"                	{ return symbol(CodesLexicaux.DIV); }
 
-"=="                    { return symbol(CodesLexicaux.EGALEGAL); }
-"!="                    { return symbol(CodesLexicaux.DIFF); }
-"<"                	{ return symbol(CodesLexicaux.INF); }
-">"                	{ return symbol(CodesLexicaux.SUP); }
+<YYINITIAL> "=="                { return symbol(CodesLexicaux.EGALEGAL); }
+<YYINITIAL> "!="                { return symbol(CodesLexicaux.DIFF); }
+<YYINITIAL> "<"                	{ return symbol(CodesLexicaux.INF); }
+<YYINITIAL> ">"                	{ return symbol(CodesLexicaux.SUP); }
 
-"et"                	{ return symbol(CodesLexicaux.ET); }
-"ou"                	{ return symbol(CodesLexicaux.OU); }
-"non"                	{ return symbol(CodesLexicaux.NON); }
+<YYINITIAL> "et"               	{ return symbol(CodesLexicaux.ET); }
+<YYINITIAL> "ou"               	{ return symbol(CodesLexicaux.OU); }
+<YYINITIAL> "non"              	{ return symbol(CodesLexicaux.NON); }
 
-"("                	{ return symbol(CodesLexicaux.PAROUV); }
-")"                	{ return symbol(CodesLexicaux.PARFER); }
+<YYINITIAL> "("                	{ return symbol(CodesLexicaux.PAROUV); }
+<YYINITIAL> ")"                	{ return symbol(CodesLexicaux.PARFER); }
 
-"classe" 			{ return symbol(CodesLexicaux.MCCLASSE);}
-"publique"			{ return symbol(CodesLexicaux.PUBLIQUE);}
-"privee"			{ return symbol(CodesLexicaux.PRIVEE);}
-"entier"			{  return symbol(CodesLexicaux.ENTIER);}
-"debut"				{ return symbol(CodesLexicaux.DEBUT);}
-"fin"				{  return symbol(CodesLexicaux.FIN);}
-"="					{  return symbol(CodesLexicaux.EGAL);}
-"ecrire"			{ return symbol(CodesLexicaux.MCECRIRE);}
-";"					{ return symbol(CodesLexicaux.POINTVIRGULE);}
-","					{ return symbol(CodesLexicaux.VIRGULE);}
-{idf}			    { return symbol(CodesLexicaux.IDF,yytext());}
-{csteC}				{ return symbol(CodesLexicaux.CONSTANTECHAINE, yytext()); }
-{csteE}      	    { return symbol(CodesLexicaux.CONSTANTEINT, yytext()); }
-{csteB}      	    { return symbol(CodesLexicaux.CONSTANTEBOOL, yytext()); }
+<YYINITIAL> "classe" 			{ return symbol(CodesLexicaux.MCCLASSE);}
+<YYINITIAL> "entier"			{ return symbol(CodesLexicaux.ENTIER);}
+<YYINITIAL> "debut"				{ return symbol(CodesLexicaux.DEBUT);}
+<YYINITIAL> "fin"				{ return symbol(CodesLexicaux.FIN);}
+<YYINITIAL> "="					{ return symbol(CodesLexicaux.EGAL);}
+<YYINITIAL> "ecrire"			{ return symbol(CodesLexicaux.MCECRIRE);}
+<YYINITIAL> ";"					{ return symbol(CodesLexicaux.POINTVIRGULE);}
+<YYINITIAL> ","					{ return symbol(CodesLexicaux.VIRGULE);}
+<YYINITIAL> {idf}			    { return symbol(CodesLexicaux.IDF,yytext());}
+<YYINITIAL> {csteB}      	    { return symbol(CodesLexicaux.CONSTANTEBOOL, yytext()); }
+<YYINITIAL> {csteC}				{ return symbol(CodesLexicaux.CONSTANTECHAINE, yytext()); }
+<YYINITIAL> {csteE}      	    { return symbol(CodesLexicaux.CONSTANTEINT, yytext()); }
+<YYINITIAL> {statut}      	    { return symbol(CodesLexicaux.STATUT, yytext()); }
 
-{espace}                { }
 
+
+<YYINITIAL> {espace}                { }
+
+<YYINITIAL> {commentaireSlashSlash} {}
+
+<YYINITIAL> {commentaireSlashEtoile}	{ yybegin(commentaire) ; }
+
+<commentaire> {commentaireEtoileSlash} 	{ yybegin(YYINITIAL) ; }
 
 
 .                       { throw new AnalyseLexicaleException(yyline, yycolumn, yytext()) ; }

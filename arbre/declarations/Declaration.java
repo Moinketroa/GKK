@@ -1,9 +1,9 @@
 package plic.arbre.declarations;
 
-import plic.arbre.expression.Expression;
+import plic.arbre.ArbreAbstrait;
 import plic.exceptions.AnalyseSemantiqueException;
 
-public abstract class Declaration {
+public abstract class Declaration extends ArbreAbstrait{
 	
 	protected Declaration(){
 		super();

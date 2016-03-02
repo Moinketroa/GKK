@@ -25,6 +25,8 @@ public class OuLogique extends BinaireLogique {
 		
 		StringBuilder sb = new StringBuilder();
 		
+		sb.append("#Ou logique\n");
+		
 		sb.append(super.toMips());
 		
 		sb.append("or $v0, $v0, $t8\n");

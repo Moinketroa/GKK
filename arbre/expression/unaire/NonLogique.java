@@ -25,6 +25,9 @@ public class NonLogique extends Unaire {
 		this.verify();
 		
 		StringBuilder sb = new StringBuilder();
+		
+		sb.append("#Non Logique\n");
+		
 		if(this.expression.estConstante()){
 			sb.append("li $v0, " + this.expression.toMips() + "\n");
 		}

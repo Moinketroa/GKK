@@ -25,6 +25,8 @@ public class EtLogique extends BinaireLogique {
 		
 		StringBuilder sb = new StringBuilder();
 		
+		sb.append("#Et logique\n");
+		
 		sb.append(super.toMips());
 		
 		sb.append("and $v0, $v0, $t8\n");
