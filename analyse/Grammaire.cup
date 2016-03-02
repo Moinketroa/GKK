@@ -127,17 +127,14 @@ SYSTEME ::= 	CLASSE:c
                 ;
 
 CLASSE  ::= 	MCCLASSE IDF:i LDECL:l FIN
-				{: System.out.println("CLASSE");   
-				RESULT = l; :}
+				{: RESULT = l; :}
 		|
 				MCCLASSE IDF FIN
-				{: System.out.println("CLASSERIEN");
-				RESULT = new BlocDInstructions(); :}
+				{: RESULT = new BlocDInstructions(); :}
 				;
 				
 LDECL   ::=		DECLARATION:d
-				{:System.out.println("DECL");   
-				RESULT = d; :}
+				{: RESULT = d; :}
         |
         		LDECL:l DECLARATION:d
         		{: l.ajouter(d);
@@ -145,8 +142,7 @@ LDECL   ::=		DECLARATION:d
         		;
 
 DECLARATION ::=	DECL_CHAMP:d POINTVIRGULE
-				{: System.out.println("DECLCHAMP");  
-				RESULT = d; :}
+				{: RESULT = d; :}
 		|
 				DECL_CONST:c POINTVIRGULE
 				{: RESULT = c; :}

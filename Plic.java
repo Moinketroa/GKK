@@ -12,6 +12,7 @@ import plic.analyse.AnalyseurLexical;
 import plic.analyse.AnalyseurSyntaxique;
 import plic.arbre.ArbreAbstrait;
 import plic.exceptions.AnalyseException;
+import plic.tds.TDS;
 
 /**
  * 24 mars 2015 
@@ -29,7 +30,9 @@ public class Plic {
             StringBuilder sb = new StringBuilder();
             sb.append(".text\nmain :\n");
             
-            //append de la taille de la zone des variables
+            sb.append("\t #Zone mémoire des variables\n"
+            		+ "\t move $s7, $sp\n"
+            		+ "\t addi $sp, $sp, -" + TDS.getInstance().getTailleZoneDesVariables() + "\n");
             
             sb.append(arbre.toMips());
             sb.append("end :\n");
