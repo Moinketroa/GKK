@@ -28,6 +28,9 @@ public class Plic {
             
             StringBuilder sb = new StringBuilder();
             sb.append(".text\nmain :\n");
+            
+            //append de la taille de la zone des variables
+            
             sb.append(arbre.toMips());
             sb.append("end :\n");
             sb.append("\t# fin du programme\n");

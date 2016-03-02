@@ -42,9 +42,11 @@ parser code {:
         lesTerminaux.put(new Integer(CodesLexicaux.NON), "non") ;
         
         lesTerminaux.put(new Integer(CodesLexicaux.MCCLASSE), "classe");
-        lesTerminaux.put(new Integer(CodesLexicaux.DEBUT), "debut");
         lesTerminaux.put(new Integer(CodesLexicaux.VIRGULE), ",");
         lesTerminaux.put(new Integer(CodesLexicaux.MCECRIRE), "ecrire");
+        lesTerminaux.put(new Integer(CodesLexicaux.STATUT), "statut");
+        lesTerminaux.put(new Integer(CodesLexicaux.TYPE), "type");
+
 
         StringBuffer m = new StringBuffer() ;
 
@@ -83,15 +85,14 @@ parser code {:
 /* Terminals (tokens returned by the scanner).  */
 
 terminal Symbol    MCCLASSE;	//mot cle classe
-terminal Symbol    ENTIER;	//type
-terminal Symbol	   DEBUT, FIN;	//mot cle debut et fin
+terminal Symbol	   FIN;	//mot cle fin
 
 terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER ;
 terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON ;
 terminal Symbol	   EGAL;
 terminal Symbol	   MCECRIRE;
 terminal Symbol	   POINTVIRGULE, VIRGULE;
-terminal String    IDF, CONSTANTEINT, CONSTANTEBOOL, CONSTANTECHAINE, STATUT ;
+terminal String    IDF, CONSTANTEINT, CONSTANTEBOOL, CONSTANTECHAINE, STATUT, TYPE ;
    
 /* Non terminals used in the grammar section.  */
 
@@ -102,7 +103,6 @@ non terminal ArrayList<String> L_IDF;
 non terminal ArbreAbstrait INSTRUCTION; 
 non terminal ArbreAbstrait AFFECT; 
 non terminal ArbreAbstrait ECRIRE;
-non terminal String TYPE;
 non terminal Expression EXPR, CSTE, ACCES;
 
 precedence left INF, SUP ;
@@ -126,11 +126,11 @@ SYSTEME ::= 	CLASSE:c
                    RESULT = arbre ; :}
                 ;
 
-CLASSE  ::= 	MCCLASSE IDF:i DEBUT LDECL:l FIN
+CLASSE  ::= 	MCCLASSE IDF:i LDECL:l FIN
 				{: System.out.println("CLASSE");   
 				RESULT = l; :}
 		|
-				MCCLASSE IDF DEBUT FIN
+				MCCLASSE IDF FIN
 				{: RESULT = new BlocDInstructions(); :}
 				;
 				
@@ -198,8 +198,6 @@ ECRIRE 	::=		MCECRIRE EXPR:e
 				MCECRIRE CONSTANTECHAINE:c
 				{: RESULT = new EcritureChaine(c); :}
 				;
-    
-TYPE 	::=		ENTIER;
 
 EXPR    ::=     EXPR:g  PLUS  EXPR:d
                 {: RESULT = new Plus(g, d) ; :}

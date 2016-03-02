@@ -33,6 +33,7 @@ csteC = "\".*\""
 csteE = [0-9]+
 csteB = "vrai" | "faux"
 statut = "publique" | "privee"
+type = "entier"
 
 
 idf = [a-zA-Z][a-zA-Z0-9\_]*
@@ -66,8 +67,7 @@ commentaireEtoileSlash = [*][/]
 <YYINITIAL> ")"                	{ return symbol(CodesLexicaux.PARFER); }
 
 <YYINITIAL> "classe" 			{ return symbol(CodesLexicaux.MCCLASSE);}
-<YYINITIAL> "entier"			{ return symbol(CodesLexicaux.ENTIER);}
-<YYINITIAL> "debut"				{ return symbol(CodesLexicaux.DEBUT);}
+
 <YYINITIAL> "fin"				{ return symbol(CodesLexicaux.FIN);}
 <YYINITIAL> "="					{ return symbol(CodesLexicaux.EGAL);}
 <YYINITIAL> "ecrire"			{ return symbol(CodesLexicaux.MCECRIRE);}
@@ -77,6 +77,7 @@ commentaireEtoileSlash = [*][/]
 <YYINITIAL> {csteB}      	    { return symbol(CodesLexicaux.CONSTANTEBOOL, yytext()); }
 <YYINITIAL> {csteC}				{ return symbol(CodesLexicaux.CONSTANTECHAINE, yytext()); }
 <YYINITIAL> {csteE}      	    { return symbol(CodesLexicaux.CONSTANTEINT, yytext()); }
+<YYINITIAL> {type}				{ return symbol(CodesLexicaux.TYPE), yytext());}
 <YYINITIAL> {statut}      	    { return symbol(CodesLexicaux.STATUT, yytext()); }
 
 
