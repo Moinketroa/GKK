@@ -20,12 +20,15 @@ public class BlocDInstructions extends ArbreAbstrait {
     
     @Override
     public String toString() {
+    	if (expr == null)
+			return "";
         return expr.toString() ;
     }
 
 	@Override
 	public String toMips() {
-		
+		if (expr == null)
+			return "";
 		return expr.toMips();
 	}
 

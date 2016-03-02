@@ -131,7 +131,8 @@ CLASSE  ::= 	MCCLASSE IDF:i LDECL:l FIN
 				RESULT = l; :}
 		|
 				MCCLASSE IDF FIN
-				{: RESULT = new BlocDInstructions(); :}
+				{: System.out.println("CLASSERIEN");
+				RESULT = new BlocDInstructions(); :}
 				;
 				
 LDECL   ::=		DECLARATION:d
@@ -143,15 +144,15 @@ LDECL   ::=		DECLARATION:d
         		   RESULT = l; :}  
         		;
 
-DECLARATION ::=	DECL_CHAMP:d
+DECLARATION ::=	DECL_CHAMP:d POINTVIRGULE
 				{: System.out.println("DECLCHAMP");  
 				RESULT = d; :}
 		|
-				DECL_CONST:c
+				DECL_CONST:c POINTVIRGULE
 				{: RESULT = c; :}
 				;
 				
-DECL_CHAMP 	::=	STATUT:st TYPE:t L_IDF:li POINTVIRGULE
+DECL_CHAMP 	::=	STATUT:st TYPE:t L_IDF:li
 				{: 
 					BlocDInstructions bl = new BlocDInstructions();
 					for(String s : li){

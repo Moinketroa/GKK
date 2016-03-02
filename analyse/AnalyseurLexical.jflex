@@ -29,12 +29,12 @@ import plic.tds.*;
   }
 %}
 
-csteC = "\".*\""
-csteE = [0-9]+
+
 csteB = "vrai" | "faux"
 statut = "publique" | "privee"
 type = "entier"
-
+csteC = "\".*\""
+csteE = [0-9]+
 
 idf = [a-zA-Z][a-zA-Z0-9\_]*
 
@@ -73,12 +73,13 @@ commentaireEtoileSlash = [*][/]
 <YYINITIAL> "ecrire"			{ return symbol(CodesLexicaux.MCECRIRE);}
 <YYINITIAL> ";"					{ return symbol(CodesLexicaux.POINTVIRGULE);}
 <YYINITIAL> ","					{ return symbol(CodesLexicaux.VIRGULE);}
-<YYINITIAL> {idf}			    { return symbol(CodesLexicaux.IDF,yytext());}
+
+<YYINITIAL> {statut}      	    { return symbol(CodesLexicaux.STATUT, yytext()); }
+<YYINITIAL> {type}				{ return symbol(CodesLexicaux.TYPE, yytext());}
 <YYINITIAL> {csteB}      	    { return symbol(CodesLexicaux.CONSTANTEBOOL, yytext()); }
 <YYINITIAL> {csteC}				{ return symbol(CodesLexicaux.CONSTANTECHAINE, yytext()); }
 <YYINITIAL> {csteE}      	    { return symbol(CodesLexicaux.CONSTANTEINT, yytext()); }
-<YYINITIAL> {type}				{ return symbol(CodesLexicaux.TYPE), yytext());}
-<YYINITIAL> {statut}      	    { return symbol(CodesLexicaux.STATUT, yytext()); }
+<YYINITIAL> {idf}			    { return symbol(CodesLexicaux.IDF,yytext());}
 
 
 
