@@ -40,6 +40,10 @@ parser code {:
         lesTerminaux.put(new Integer(CodesLexicaux.ET), "et") ;
         lesTerminaux.put(new Integer(CodesLexicaux.OU), "ou") ;
         lesTerminaux.put(new Integer(CodesLexicaux.NON), "non") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.EGAL), "=") ;
+
+        lesTerminaux.put(new Integer(CodesLexicaux.POINTVIRGULE), ";") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.VIRGULE), ",") ;
         
         lesTerminaux.put(new Integer(CodesLexicaux.MCCLASSE), "classe");
         lesTerminaux.put(new Integer(CodesLexicaux.VIRGULE), ",");
@@ -190,10 +194,12 @@ AFFECT	::=		ACCES:a EGAL EXPR:e POINTVIRGULE
 				;
 				
 ECRIRE 	::=		MCECRIRE EXPR:e
-				{: RESULT = new EcritureExpr(e); :}
+				{: 	System.out.println("jeeeej");
+					RESULT = new EcritureExpr(e); :}
 		|
 				MCECRIRE CONSTANTECHAINE:c
-				{: RESULT = new EcritureChaine(c); :}
+				{: 	System.out.println("llelele");
+					RESULT = new EcritureChaine(c); :}
 				;
 
 EXPR    ::=     EXPR:g  PLUS  EXPR:d

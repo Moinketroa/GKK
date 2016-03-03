@@ -1,5 +1,6 @@
 package plic.arbre.expression.binaire.comparaison;
 
+import plic.LabelMaker;
 import plic.arbre.expression.Expression;
 import plic.exceptions.AnalyseSemantiqueException;
 
@@ -10,10 +11,12 @@ import plic.exceptions.AnalyseSemantiqueException;
  */
 
 public class Egal extends Comparaison {
-	private int compteur = 1;  	
+	private LabelMaker lablemaker = LabelMaker.getInstance();
+	private int compteur;
 	
     public Egal(Expression gauche, Expression droite) {
         super(gauche, droite);
+        compteur = lablemaker.getEgalLabel();
     }
     
     @Override

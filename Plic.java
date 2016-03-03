@@ -28,6 +28,7 @@ public class Plic {
             ArbreAbstrait arbre = (ArbreAbstrait) analyseur.parse().value;
             
             StringBuilder sb = new StringBuilder();
+            sb.append(".data\nnewline :\t.asciiz \"\\n\"\n");
             sb.append(".text\nmain :\n");
             
             sb.append("\t #Zone mémoire des variables\n"
