@@ -16,4 +16,8 @@ public abstract class Symbole {
 	public void setDeplacement(int d){
 		deplacement = d;
 	}
+	
+	public int getDeplacement(){
+		return deplacement;
+	}
 }

@@ -33,14 +33,15 @@ public class Plic {
             
             sb.append("\t #Zone mémoire des variables\n"
             		+ "\t move $s7, $sp\n"
-            		+ "\t addi $sp, $sp, -" + TDS.getInstance().getTailleZoneDesVariables() + "\n");
+            		+ "\t addi $sp, $sp, " + TDS.getInstance().getTailleZoneDesVariables() + "\n");
             
-            if (arbre.toMips() != null)
+            if (arbre.toMips() != null){
             	sb.append(arbre.toMips());
+            	System.out.println(arbre.toString());
+            }
             
             sb.append("end :\n"
             		+ "\t #Fin du programme\n"
-            		+ "\t move $v1, $v0   # copie de v0 dans v1 pour permettre les tests de plic0\n"
             		+ "\t li $v0, 10      # retour au système\n"
             		+ "\t syscall\n");
             

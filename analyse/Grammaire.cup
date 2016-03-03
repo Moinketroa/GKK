@@ -157,7 +157,7 @@ DECL_CHAMP 	::=	STATUT:st TYPE:t L_IDF:li
 					BlocDInstructions bl = new BlocDInstructions();
 					for(String s : li){
 						TDS.getInstance().ajouter(new EntreeVar(s), new SymboleEntier(st, t));
-						bl.ajouter(new DeclarationChamp());
+						bl.ajouter(new DeclarationChamp(s, t, st));
 				  	} 
 				   RESULT = bl; :} 
 				;

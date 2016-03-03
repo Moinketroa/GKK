@@ -33,7 +33,7 @@ import plic.tds.*;
 csteB = "vrai" | "faux"
 statut = "publique" | "privee"
 type = "entier"
-csteC = [\"][a-zA-Z0-9\_\ \-\:\,\=\+\!\?]*[\"]
+csteC = [\"][a-zA-Z0-9\_\ \-\:\,\=\+\!\?\\\"\']*[\"]
 csteE = [0-9]+
 
 idf = [a-zA-Z][a-zA-Z0-9\_]*

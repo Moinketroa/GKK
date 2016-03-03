@@ -14,7 +14,7 @@ public class DeclarationChamp extends Declaration{
 	
 	@Override
 	public String toMips() {
-		TDS.getInstance().ajouter(new EntreeVar(nom),new SymboleEntier(type,status));
+		//TDS.getInstance().ajouter(new EntreeVar(nom),new SymboleEntier(type,status));
 		return null;
 	}
 

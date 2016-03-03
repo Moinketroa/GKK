@@ -37,9 +37,11 @@ public class BlocDInstructions extends ArbreAbstrait {
 	public String toMips() {
 		StringBuilder sb = new StringBuilder();
     	for (ArbreAbstrait expr : bdi){
-    		if (expr == null)
-    			sb.append("");
-    		sb.append(expr.toMips()) ;
+    		if (expr != null) {
+    			String s = expr.toMips();
+    			if (s != null)
+    				sb.append(expr.toMips()) ;
+    		}		
     	}
     	
     	return sb.toString();
