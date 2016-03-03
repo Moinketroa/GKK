@@ -5,8 +5,13 @@ import plic.exceptions.AnalyseSemantiqueException;
 
 public abstract class Declaration extends ArbreAbstrait{
 	
-	protected Declaration(){
+	String nom,type,status;
+	
+	protected Declaration(String nom,String type,String status){
 		super();
+		this.nom = nom;
+		this.type = type;
+		this.status = status;
 	}
 	
 	public abstract String toMips();
