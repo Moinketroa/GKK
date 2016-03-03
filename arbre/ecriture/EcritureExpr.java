@@ -20,6 +20,9 @@ public class EcritureExpr extends Ecriture {
 		sb.append("\tmove $a0, $v0\n");
 		sb.append("\t li $v0, 1\n");
 		sb.append("\tsyscall\n");
+		sb.append("\tli\t$v0, 4\n");
+		sb.append("\tla\t$a0, newline\n");
+		sb.append("\tsyscall\n");
 		
 		return sb.toString();
 	}

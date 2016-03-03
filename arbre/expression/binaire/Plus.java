@@ -29,8 +29,9 @@ public class Plus extends BinaireArithmetique {
 		
 		if (this.gauche.estConstante() && this.droite.estConstante()) {
 			/* Cas droite et gauche constantes */
-			sb.append("li $v0, " + this.gauche.toMips() + "\n");
-			sb.append("addi $v0, $v0, " + this.droite.toMips() + "\n");
+			int g = Integer.parseInt(gauche.toMips());
+			int d = Integer.parseInt(droite.toMips());
+			sb.append("li $v0, " + (g + d) + "\n");
 		} else if (this.droite.estConstante()){
 			/* Cas droite constante */
 			sb.append(this.gauche.toMips() + "\n");
