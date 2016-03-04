@@ -189,17 +189,15 @@ INSTRUCTION ::= AFFECT:a
 				{: RESULT = e; :}
 				;
 				
-AFFECT	::=		ACCES:a EGAL EXPR:e POINTVIRGULE
+AFFECT	::=		ACCES:a EGAL EXPR:e
 				{: RESULT = new Affectation(a, e); :}
 				;
 				
 ECRIRE 	::=		MCECRIRE EXPR:e
-				{: 	System.out.println("jeeeej");
-					RESULT = new EcritureExpr(e); :}
+				{: RESULT = new EcritureExpr(e); :}
 		|
 				MCECRIRE CONSTANTECHAINE:c
-				{: 	System.out.println("llelele");
-					RESULT = new EcritureChaine(c); :}
+				{: RESULT = new EcritureChaine(c); :}
 				;
 
 EXPR    ::=     EXPR:g  PLUS  EXPR:d

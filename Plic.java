@@ -37,7 +37,6 @@ public class Plic {
             
             if (arbre.toMips() != null){
             	sb.append(arbre.toMips());
-            	System.out.println(arbre.toString());
             }
             
             sb.append("end :\n"

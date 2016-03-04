@@ -19,7 +19,6 @@ public class TDS{
 	}
 	
 	public void ajouter(Entree e, Symbole s){
-		System.out.println("achlol  " + e.toString());
 		if (dict.containsKey(e)) throw new DoubleDeclarationException(e.toString());
 		s.setDeplacement(deplacement);
 		deplacement -= 4;

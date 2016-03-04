@@ -34,7 +34,7 @@ public class EcritureChaine extends Ecriture {
 		System.out.println(newchaine.toString());
 		
 		sb.append(".data\n");
-		sb.append("string" + compteur + ":\t.asciiz " + newchaine.toString() + "\n");
+		sb.append("string" + compteur + ":\t.asciiz " + newchaine.toString() + "\"\n");
 		sb.append(".text\n");
 		sb.append("\tli\t$v0, 4\n");
 		sb.append("\tla\t$a0, string" + compteur + "\n");
