@@ -9,6 +9,7 @@ public class LabelMaker {
 	private int stringLabel = 0;
 	private int diffLabel = 0;
 	private int egalLabel = 0;
+	private int siLabel = 0;
 	
 	public static LabelMaker getInstance(){
 		return lm;
@@ -28,6 +29,12 @@ public class LabelMaker {
 	public int getEgalLabel(){
 		int val = egalLabel;
 		egalLabel++;
+		return val;
+	}
+	
+	public int getSiLabel(){
+		int val = siLabel;
+		siLabel++;
 		return val;
 	}
 }

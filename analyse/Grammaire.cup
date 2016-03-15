@@ -15,6 +15,7 @@ import plic.arbre.declarations.*;
 import plic.arbre.ecriture.*;
 import plic.arbre.expression.acces.*;
 import plic.arbre.affectations.*;
+import plic.arbre.condition.Condition;
 
 import java_cup.runtime.*;
 
@@ -90,6 +91,7 @@ parser code {:
 
 terminal Symbol    MCCLASSE;	//mot cle classe
 terminal Symbol	   FIN;	//mot cle fin
+terminal Symbol	   SI, SINON, ALORS, FINSI;
 
 terminal Symbol    PLUS, MOINS, MULT, DIV, PAROUV, PARFER ;
 terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON ;
@@ -102,7 +104,8 @@ terminal String    IDF, CONSTANTEINT, CONSTANTEBOOL, CONSTANTECHAINE, STATUT, TY
 
 non terminal ArbreAbstrait SYSTEME ;
 non terminal ArbreAbstrait CLASSE;
-non terminal BlocDInstructions LDECL, DECLARATION, DECL_CHAMP, DECL_CONST;
+non terminal BlocDInstructions LDECL, DECLARATION, DECL_CHAMP, DECL_CONST, B_SINON;
+non terminal Condition CONDI;
 non terminal ArrayList<String> L_IDF;
 non terminal ArbreAbstrait INSTRUCTION; 
 non terminal ArbreAbstrait AFFECT; 
@@ -117,6 +120,7 @@ precedence left OU ;
 precedence left ET ;
 precedence left NON ;
 precedence right MCECRIRE;
+precedence right SI;
 precedence left POINTVIRGULE;
 precedence left IDF;
 
@@ -145,14 +149,14 @@ LDECL   ::=		DECLARATION:d
         		   RESULT = l; :}  
         		;
 
-DECLARATION ::=	DECL_CHAMP:d POINTVIRGULE
+DECLARATION ::=	DECL_CHAMP:d
 				{: RESULT = d; :}
 		|
-				DECL_CONST:c POINTVIRGULE
+				DECL_CONST:c
 				{: RESULT = c; :}
 				;
 				
-DECL_CHAMP 	::=	STATUT:st TYPE:t L_IDF:li
+DECL_CHAMP 	::=	STATUT:st TYPE:t L_IDF:li POINTVIRGULE
 				{: 
 					BlocDInstructions bl = new BlocDInstructions();
 					for(String s : li){
@@ -189,18 +193,38 @@ INSTRUCTION ::= AFFECT:a
 		|
 				ECRIRE:e
 				{: RESULT = e; :}
+		|		
+				CONDI:c
+				{: RESULT = c; :}
 				;
 				
-AFFECT	::=		ACCES:a EGAL EXPR:e
+AFFECT	::=		ACCES:a EGAL EXPR:e POINTVIRGULE
 				{: 	RESULT = new Affectation(a, e); 
 					RESULT.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left); :}
 				;
 				
-ECRIRE 	::=		MCECRIRE EXPR:e
+CONDI 	::=		SI EXPR:e ALORS B_SINON:b FINSI
+				{:  RESULT = new Condition(e, null, b);
+					RESULT.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left); :}
+		|		
+				SI EXPR:e ALORS DECL_CONST:d B_SINON:b FINSI
+				{:	RESULT = new Condition(e, d, b);
+					RESULT.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left); :}
+				;
+				
+B_SINON	::=		SINON DECL_CONST:d
+				{: 	BlocDInstructions bdi = new BlocDInstructions();
+					bdi.ajouter(d);
+					RESULT = bdi; :}
+		|
+				{: 	RESULT = null; :}
+				;
+				
+ECRIRE 	::=		MCECRIRE EXPR:e POINTVIRGULE
 				{: RESULT = new EcritureExpr(e); 
 					RESULT.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left); :}
 		|
-				MCECRIRE CONSTANTECHAINE:c
+				MCECRIRE CONSTANTECHAINE:c POINTVIRGULE
 				{: RESULT = new EcritureChaine(c); 
 					RESULT.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left); :}
 				;
@@ -261,7 +285,7 @@ EXPR    ::=     EXPR:g  PLUS  EXPR:d
         |
                 PAROUV  EXPR:e  PARFER
                 {: RESULT = e ; :}
-                ;
+                ;        
 
 ACCES	::=		IDF:i
 				{: RESULT = new Acces(i); 

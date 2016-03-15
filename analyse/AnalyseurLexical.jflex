@@ -66,6 +66,11 @@ commentaireEtoileSlash = [*][/]
 <YYINITIAL> "("                	{ return symbol(CodesLexicaux.PAROUV); }
 <YYINITIAL> ")"                	{ return symbol(CodesLexicaux.PARFER); }
 
+<YYINITIAL> "sinon"             { return symbol(CodesLexicaux.SINON); }
+<YYINITIAL> "si"              	{ return symbol(CodesLexicaux.SI); }
+<YYINITIAL> "alors"            	{ return symbol(CodesLexicaux.ALORS); }
+<YYINITIAL> "fsi"             	{ return symbol(CodesLexicaux.FINSI); }
+
 <YYINITIAL> "classe" 			{ return symbol(CodesLexicaux.MCCLASSE);}
 
 <YYINITIAL> "fin"				{ return symbol(CodesLexicaux.FIN);}
@@ -83,9 +88,9 @@ commentaireEtoileSlash = [*][/]
 
 
 
-<YYINITIAL> {espace}                { }
+<YYINITIAL> {espace}                	{ }
 
-<YYINITIAL> {commentaireSlashSlash} {}
+<YYINITIAL> {commentaireSlashSlash} 	{}
 
 <YYINITIAL> {commentaireSlashEtoile}	{ yybegin(commentaire) ; }
 
