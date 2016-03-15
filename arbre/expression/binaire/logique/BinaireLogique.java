@@ -48,7 +48,7 @@ public abstract class BinaireLogique extends Binaire {
     
     public void verify() throws AnalyseSemantiqueException{
     	if (!(gauche.estBooleen() && droite.estBooleen())){
-    		throw new AnalyseSemantiqueException("Binaire Logique sur 2 expressions incompatibles");
+    		throw new AnalyseSemantiqueException(ligne, "Binaire Logique sur 2 expressions incompatibles");
     	}
     }
 }

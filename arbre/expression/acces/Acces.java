@@ -34,7 +34,7 @@ public class Acces extends Expression {
 		Symbole var = tds.identifier(new EntreeVar(i));
 		
 		if (var == null)
-			throw new AnalyseSemantiqueException("Variable " + i + " non déclarée");
+			throw new AnalyseSemantiqueException(ligne, "Variable " + i + " non déclarée");
 		
 		deplacement = var.getDeplacement();
 	}

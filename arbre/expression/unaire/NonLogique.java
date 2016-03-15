@@ -47,7 +47,7 @@ public class NonLogique extends Unaire {
 	@Override
 	public void verify() throws AnalyseSemantiqueException {
 		if (!expression.estBooleen()){
-			throw new AnalyseSemantiqueException("Non Logique sur expression entière");
+			throw new AnalyseSemantiqueException(ligne, "Non Logique sur expression entière");
 		}
 	}
 }

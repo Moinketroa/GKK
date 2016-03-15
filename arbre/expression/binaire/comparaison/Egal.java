@@ -48,7 +48,7 @@ public class Egal extends Comparaison {
     
 	public void verify() throws AnalyseSemantiqueException{
     	if ((gauche.estBooleen() && droite.estEntiere()) || (droite.estBooleen() && gauche.estEntiere())){
-    		throw new AnalyseSemantiqueException("Egal sur 2 expressions différentes");
+    		throw new AnalyseSemantiqueException(ligne, "Egal sur 2 expressions différentes");
     	}
     }
 	

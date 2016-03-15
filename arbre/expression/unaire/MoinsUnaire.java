@@ -45,7 +45,7 @@ public class MoinsUnaire extends Unaire {
 	@Override
 	public void verify() throws AnalyseSemantiqueException {
 		if (!expression.estEntiere()){
-			throw new AnalyseSemantiqueException("Moins Unaire sur expression booléenne");
+			throw new AnalyseSemantiqueException(ligne, "Moins Unaire sur expression booléenne");
 		}
 	}
 }

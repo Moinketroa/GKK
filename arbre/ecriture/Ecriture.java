@@ -4,7 +4,7 @@ import plic.arbre.ArbreAbstrait;
 import plic.exceptions.AnalyseSemantiqueException;
 
 public abstract class Ecriture extends ArbreAbstrait {
-
+	
 	protected Ecriture() {
         super() ;
     }

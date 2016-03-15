@@ -1,4 +1,11 @@
 *.class
+*~
+
+# les fichiers sont a generer avec le build
+analyse/AnalyseurLexical.java
+analyse/AnalyseurSyntaxique.java
+analyse/CodesLexicaux.java
+
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

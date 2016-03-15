@@ -37,7 +37,7 @@ public class Inferieur extends Comparaison {
     
 	public void verify() throws AnalyseSemantiqueException{
     	if (!(gauche.estEntiere() && droite.estEntiere())){
-    		throw new AnalyseSemantiqueException("Inferieur sur 2 expressions incompatibles");
+    		throw new AnalyseSemantiqueException(ligne, "Inferieur sur 2 expressions incompatibles");
     	}
     }
 }

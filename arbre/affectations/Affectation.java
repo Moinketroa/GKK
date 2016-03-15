@@ -10,7 +10,6 @@ public class Affectation extends ArbreAbstrait{
 	
 	protected Expression acces, exp;
 	
-	
 	public Affectation(Expression acces, Expression exp){
 		super();
 		this.acces = acces;
@@ -43,7 +42,7 @@ public class Affectation extends ArbreAbstrait{
 
 	public void verify() throws AnalyseSemantiqueException {
 		if (!exp.estEntiere())
-			throw new AnalyseSemantiqueException("Affectation : les deux opérandes n'ont pas le meme type");
+			throw new AnalyseSemantiqueException(ligne, "Affectation : les deux opérandes n'ont pas le meme type");
 	}
 	
 }

@@ -11,6 +11,7 @@ public abstract class Constante extends Expression {
     protected String cste ;
     
     protected Constante(String texte) {
+    	super();
         cste = texte ;
     }
 

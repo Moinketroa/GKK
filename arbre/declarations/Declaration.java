@@ -5,7 +5,7 @@ import plic.exceptions.AnalyseSemantiqueException;
 
 public abstract class Declaration extends ArbreAbstrait{
 	
-	String nom,type,status;
+	protected String nom,type,status;
 	
 	protected Declaration(String nom,String type,String status){
 		super();

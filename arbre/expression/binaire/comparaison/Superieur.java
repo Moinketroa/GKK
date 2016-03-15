@@ -37,7 +37,7 @@ public class Superieur extends Comparaison {
     
 	public void verify() throws AnalyseSemantiqueException{
     	if (!(gauche.estEntiere() && droite.estEntiere())){
-    		throw new AnalyseSemantiqueException("Superieur sur 2 expressions incompatibles");
+    		throw new AnalyseSemantiqueException(ligne, "Superieur sur 2 expressions incompatibles");
     	}
     }
 }

@@ -157,7 +157,9 @@ DECL_CHAMP 	::=	STATUT:st TYPE:t L_IDF:li
 					BlocDInstructions bl = new BlocDInstructions();
 					for(String s : li){
 						TDS.getInstance().ajouter(new EntreeVar(s), new SymboleEntier(st, t));
-						bl.ajouter(new DeclarationChamp(s, t, st));
+						DeclarationChamp dc = new DeclarationChamp(s, t, st);
+						dc.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left);
+						bl.ajouter(dc);
 				  	} 
 				   RESULT = bl; :} 
 				;
@@ -190,51 +192,66 @@ INSTRUCTION ::= AFFECT:a
 				;
 				
 AFFECT	::=		ACCES:a EGAL EXPR:e
-				{: RESULT = new Affectation(a, e); :}
+				{: 	RESULT = new Affectation(a, e); 
+					RESULT.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left); :}
 				;
 				
 ECRIRE 	::=		MCECRIRE EXPR:e
-				{: RESULT = new EcritureExpr(e); :}
+				{: RESULT = new EcritureExpr(e); 
+					RESULT.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left); :}
 		|
 				MCECRIRE CONSTANTECHAINE:c
-				{: RESULT = new EcritureChaine(c); :}
+				{: RESULT = new EcritureChaine(c); 
+					RESULT.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left); :}
 				;
 
 EXPR    ::=     EXPR:g  PLUS  EXPR:d
-                {: RESULT = new Plus(g, d) ; :}
+                {: RESULT = new Plus(g, d) ; 
+					RESULT.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left); :}
         | 
                 EXPR:g  MOINS  EXPR:d
-                {: RESULT = new Moins(g, d); :}
+                {: RESULT = new Moins(g, d); 
+					RESULT.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left); :}
         |                
                 EXPR:g  MULT  EXPR:d
-                {: RESULT = new Mult(g, d); :}
+                {: RESULT = new Mult(g, d); 
+					RESULT.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left); :}
         |                
                 EXPR:g  DIV  EXPR:d
-                {: RESULT = new Div(g, d); :}
+                {: RESULT = new Div(g, d); 
+					RESULT.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left); :}
         |       
                 EXPR:g  INF  EXPR:d
-                {: RESULT = new Inferieur(g, d); :}
+                {: RESULT = new Inferieur(g, d); 
+					RESULT.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left); :}
         |       
                 EXPR:g  SUP  EXPR:d
-                {: RESULT = new Superieur(g, d); :}
+                {: RESULT = new Superieur(g, d); 
+					RESULT.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left); :}
         |              
                 EXPR:g  EGALEGAL  EXPR:d
-                {: RESULT = new Egal(g, d); :}
+                {: RESULT = new Egal(g, d); 
+					RESULT.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left); :}
         |       
                 EXPR:g  DIFF  EXPR:d
-                {: RESULT = new Different(g, d); :}
+                {: RESULT = new Different(g, d); 
+					RESULT.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left); :}
         |                      
                 MOINS  EXPR:e  
-                {: RESULT = new MoinsUnaire(e); :}
+                {: RESULT = new MoinsUnaire(e); 
+					RESULT.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left); :}
         |      
                 EXPR:g  ET  EXPR:d
-                {: RESULT = new EtLogique(g, d); :}
+                {: RESULT = new EtLogique(g, d); 
+					RESULT.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left); :}
         |      
                 EXPR:g  OU  EXPR:d
-                {: RESULT = new OuLogique(g, d); :}
+                {: RESULT = new OuLogique(g, d); 
+					RESULT.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left); :}
         |      
                 NON EXPR:e
-                {: RESULT = new NonLogique(e); :}
+                {: RESULT = new NonLogique(e); 
+					RESULT.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left); :}
         |
 				ACCES:a
 				{: RESULT = a; :}
@@ -247,11 +264,14 @@ EXPR    ::=     EXPR:g  PLUS  EXPR:d
                 ;
 
 ACCES	::=		IDF:i
-				{: RESULT = new Acces(i); :}
+				{: RESULT = new Acces(i); 
+					RESULT.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left); :}
 				;
 
 CSTE    ::=     CONSTANTEINT:e 
-                {: RESULT = new ConstanteEntiere(e) ; :}
+                {: RESULT = new ConstanteEntiere(e) ; 
+					RESULT.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left); :}
         |       CONSTANTEBOOL:e 
-                {: RESULT = new ConstanteBool(e) ; :}
+                {: RESULT = new ConstanteBool(e) ; 
+					RESULT.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left); :}
                 ;
