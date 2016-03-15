@@ -17,6 +17,8 @@ public class Acces extends Expression {
 		i = idf;
 	}
 	
+	public boolean estEntiere() { return true; };
+	
 	@Override
 	public String toMips() throws AnalyseSemantiqueException {
 		verify();

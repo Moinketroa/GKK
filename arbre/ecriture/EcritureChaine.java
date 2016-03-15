@@ -31,8 +31,6 @@ public class EcritureChaine extends Ecriture {
 		
 		newchaine.delete(newchaine.length() - 3, newchaine.length());
 		
-		System.out.println(newchaine.toString());
-		
 		sb.append(".data\n");
 		sb.append("string" + compteur + ":\t.asciiz " + newchaine.toString() + "\"\n");
 		sb.append(".text\n");

@@ -34,7 +34,7 @@ public class NonLogique extends Unaire {
 		else {
 			sb.append(this.expression.toMips() + "\n");
 		}
-		sb.append("not $v0\n");
+		sb.append("not $v0, $v0\n");
 		sb.append("addi $v0, $v0, 2\n");
 			
 		return sb.toString();
