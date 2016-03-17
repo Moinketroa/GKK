@@ -19,9 +19,13 @@ public class Acces extends Expression {
 	
 	public boolean estEntiere() { return true; };
 	
+	public boolean estBooleen() { return false; };
+	
 	@Override
 	public String toMips() throws AnalyseSemantiqueException {
 		verify();
+		
+		System.out.println("lele");
 		
 		StringBuilder sb = new StringBuilder();
 		
@@ -34,6 +38,8 @@ public class Acces extends Expression {
 	@Override
 	public void verify() throws AnalyseSemantiqueException {
 		Symbole var = tds.identifier(new EntreeVar(i));
+		
+		System.out.println("ll");
 		
 		if (var == null)
 			throw new AnalyseSemantiqueException(ligne, "Variable " + i + " non déclarée");
