@@ -3,7 +3,7 @@ package plic.arbre.declarations;
 import plic.exceptions.AnalyseSemantiqueException;
 import plic.tds.TDS;
 import plic.tds.entrees.EntreeVar;
-import plic.tds.symboles.SymboleEntier;
+import plic.tds.symboles.SymboleVar;
 
 public class DeclarationConstante extends Declaration {
 	
@@ -14,7 +14,7 @@ public class DeclarationConstante extends Declaration {
 
 	@Override
 	public String toMips() {
-		TDS.getInstance().ajouter(new EntreeVar(nom),new SymboleEntier(type,status));
+		TDS.getInstance().ajouter(new EntreeVar(nom),new SymboleVar(type,status));
 		return null;
 	}
 

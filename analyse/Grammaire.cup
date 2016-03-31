@@ -102,8 +102,8 @@ terminal String    IDF, CONSTANTEINT, CONSTANTEBOOL, CONSTANTECHAINE, STATUT, TY
    
 /* Non terminals used in the grammar section.  */
 
-non terminal ArbreAbstrait SYSTEME ;
-non terminal ArbreAbstrait CLASSE;
+non terminal BlocDInstructions SYSTEME ;
+non terminal BlocDInstructions CLASSE;
 non terminal BlocDInstructions LDECL, DECLARATION, DECL_CHAMP, DECL_CONST, B_SINON;
 non terminal Condition CONDI;
 non terminal ArrayList<String> L_IDF;
@@ -132,6 +132,10 @@ SYSTEME ::= 	CLASSE:c
 				{: BlocDInstructions arbre = new BlocDInstructions() ;
                    arbre.ajouter(c) ;
                    RESULT = arbre ; :}
+        |
+        		SYSTEME:s CLASSE:c
+        		{: 	s.ajouter(c);
+        			RESULT = s; :}   
                 ;
 
 CLASSE  ::= 	MCCLASSE IDF:i LDECL:l FIN
@@ -160,7 +164,7 @@ DECL_CHAMP 	::=	STATUT:st TYPE:t L_IDF:li POINTVIRGULE
 				{: 
 					BlocDInstructions bl = new BlocDInstructions();
 					for(String s : li){
-						TDS.getInstance().ajouter(new EntreeVar(s), new SymboleEntier(st, t));
+						TDS.getInstance().ajouter(new EntreeVar(s), new SymboleVar(st, t));
 						DeclarationChamp dc = new DeclarationChamp(s, t, st);
 						dc.setLigne(((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left);
 						bl.ajouter(dc);

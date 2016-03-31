@@ -27,9 +27,30 @@ public class EtLogique extends BinaireLogique {
 		
 		sb.append("#Et logique\n");
 		
-		sb.append(super.toMips());
+		if (this.gauche.estConstante() && this.droite.estConstante()) {
+			/* Cas droite et gauche constantes */
+			sb.append("li $v0, " + gauche.toMips() + "\n");
+			sb.append("andi $v0, $v0, " + droite.toMips() + "\n");
+		} else if (this.droite.estConstante()){
+			/* Cas droite constante */
+			sb.append(this.gauche.toMips() + "\n");
+			sb.append("andi $v0, $v0, " + this.droite.toMips() + "\n");
+		} else if (this.gauche.estConstante()){
+			/* Cas gauche constante */
+			sb.append(this.droite.toMips() + "\n");
+			sb.append("andi $v0, $v0, " + this.gauche.toMips() + "\n");
+		}else {
+			/* Cas gauche et droite sont des expressions */
+			sb.append(this.gauche.toMips() + "\n");
+			sb.append("sw $v0, ($sp)\n");
+			sb.append("addi $sp, $sp, -4\n");
+			sb.append(this.droite.toMips() + "\n");
+			sb.append("addi $sp, $sp, 4\n");
+			sb.append("lw $t8, ($sp)\n");
+			sb.append("and $v0, $v0, $t8\n");
+		}
 		
-		sb.append("and $v0, $v0, $t8\n");
+		
 		
 		return sb.toString();
 	}

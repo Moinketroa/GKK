@@ -5,6 +5,7 @@ import plic.arbre.expression.Expression;
 public abstract class Symbole {
 	protected int deplacement;
 	protected String statut, type;
+	protected int taille;
 	
 	
 	public Symbole(String statut, String type){
@@ -19,5 +20,9 @@ public abstract class Symbole {
 	
 	public int getDeplacement(){
 		return deplacement;
+	}
+	
+	public int getTailleSymbole(){
+		return (taille * -1);
 	}
 }
